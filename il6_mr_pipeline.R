@@ -12,7 +12,7 @@ library(data.table)
 library(dplyr)
 
 # Set up authentication token seamlessly
-my_key <- "eyJhbGciOiJSUzI1NiIsImtpZCI6ImFwaS1qd3QiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhcGkub3Blbmd3YXMuaW8iLCJhdWQiOiJhcGkub3Blbmd3YXMuaW8iLCJzdWIiOiIxMnJhbmpoYUBnbWFpbC5jb20iLCJpYXQiOjE3ODE5NzMyMzEsImV4cCI6MTc4MzE4MjgzMX0.Mi_dyBbupdEilF-gY7IWSgqgqJ8ALzE1uflvscohc4BCwPrLX_8PbgSABlN6EoDKvbahQVLyA52lW0aMN9ufC3LLKyvnr2M0hzhnDUP5aMe_SOok-tOCGBC4YObZjwiEa4h6RFK8dlQMDVWyGeUffgGyRk8StW2uGB1EtPaOjCxhtpwvgdDH6jysB-rKen4f_3-qlqaYy15OEg8j65JEnf85ensC57auCgm08zK0yl5LoTlsz4Awhug10FeppmwKuiDMO7N7mHr5jhdVdkxvtcZQhEno52ZpgC0sWSwMiEjRZ8HQSLDax-VHbPKcfRhTXmERA8GCjtNOwgV75NC0GQ"
+my_key <- "your_token_here"
 
 write(paste0("OPENGWAS_JWT=", my_key), file = "~/.Renviron", append = TRUE)
 readRenviron("~/.Renviron")
