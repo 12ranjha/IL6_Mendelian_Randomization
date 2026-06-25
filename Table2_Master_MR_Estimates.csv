@@ -1,0 +1,13 @@
+id.exposure,id.outcome,outcome,exposure,method,nsnp,b,se,pval,OR,OR_lower,OR_upper,cohort,power_at_OR_1.1,power_at_OR_1.2
+IL6_pQTL,ebi-a-GCST012879,Colorectal cancer || id:ebi-a-GCST012879,IL-6 Signaling,Inverse variance weighted,4,0.014574672,0.029627262,0.622765665,1.0146814,0.957437569,1.075347759,Colorectal Cancer (European),0.9876,1
+IL6_pQTL,ebi-a-GCST012879,Colorectal cancer || id:ebi-a-GCST012879,IL-6 Signaling,MR Egger,4,-0.197227072,0.144488811,0.30552363,0.821004185,0.618520377,1.089774721,Colorectal Cancer (European),0.9876,1
+IL6_pQTL,ebi-a-GCST012879,Colorectal cancer || id:ebi-a-GCST012879,IL-6 Signaling,Weighted median,4,0.032805394,0.03231528,0.310026395,1.033349424,0.969928856,1.100916861,Colorectal Cancer (European),0.9876,1
+IL6_pQTL,bbj-a-107,Colorectal cancer || id:bbj-a-107,IL-6 Signaling,Inverse variance weighted,4,-0.00096014,0.02653205,0.971132524,0.999040321,0.948415143,1.052367807,Colorectal Cancer (East Asian),0.9752,1
+IL6_pQTL,bbj-a-107,Colorectal cancer || id:bbj-a-107,IL-6 Signaling,MR Egger,4,0.028256708,0.178422299,0.888711257,1.028659716,0.725096161,1.459311011,Colorectal Cancer (East Asian),0.9752,1
+IL6_pQTL,bbj-a-107,Colorectal cancer || id:bbj-a-107,IL-6 Signaling,Weighted median,4,-0.0028287,0.029690427,0.924097878,0.997175297,0.940802602,1.056925832,Colorectal Cancer (East Asian),0.9752,1
+IL6_pQTL,bbj-a-158,hepatocellular carcinoma || id:bbj-a-158,IL-6 Signaling,Inverse variance weighted,4,-0.003001071,0.050674905,0.952775254,0.997003427,0.902737122,1.101113281,Hepatocellular Carcinoma (East Asian),0.5411,0.9765
+IL6_pQTL,bbj-a-158,hepatocellular carcinoma || id:bbj-a-158,IL-6 Signaling,MR Egger,4,0.074018672,0.340776673,0.848192374,1.076826912,0.552167626,2.100007575,Hepatocellular Carcinoma (East Asian),0.5411,0.9765
+IL6_pQTL,bbj-a-158,hepatocellular carcinoma || id:bbj-a-158,IL-6 Signaling,Weighted median,4,-0.005897692,0.056316301,0.916594476,0.994119665,0.890228025,1.110135696,Hepatocellular Carcinoma (East Asian),0.5411,0.9765
+IL6_pQTL,z7eDzW,HCC_FinnGen_European,IL-6 Signaling,Inverse variance weighted,3,-0.015780574,0.104442596,0.879902139,0.984343287,0.802127215,1.207952665,Hepatocellular Carcinoma (European),0.2402,0.6699
+IL6_pQTL,z7eDzW,HCC_FinnGen_European,IL-6 Signaling,MR Egger,3,0.444723963,0.699831431,0.639612716,1.560059502,0.395760661,6.149640143,Hepatocellular Carcinoma (European),0.2402,0.6699
+IL6_pQTL,z7eDzW,HCC_FinnGen_European,IL-6 Signaling,Weighted median,3,-0.058756814,0.115953577,0.612346347,0.94293605,0.751243214,1.183542663,Hepatocellular Carcinoma (European),0.2402,0.6699

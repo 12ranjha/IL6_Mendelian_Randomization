@@ -1,0 +1,5 @@
+"id.exposure","id.outcome","outcome","exposure","egger_intercept","se","pval","cohort"
+"IL6_pQTL","ebi-a-GCST012879","Colorectal cancer || id:ebi-a-GCST012879","IL-6 Signaling",0.0781695593993031,0.0525224571615647,0.275078783738689,"Colorectal Cancer (European)"
+"IL6_pQTL","bbj-a-107","Colorectal cancer || id:bbj-a-107","IL-6 Signaling",-0.0113552354671232,0.0685734978291401,0.883703164975471,"Colorectal Cancer (East Asian)"
+"IL6_pQTL","bbj-a-158","hepatocellular carcinoma || id:bbj-a-158","IL-6 Signaling",-0.029933931801955,0.13097123141421,0.840458331565163,"Hepatocellular Carcinoma (East Asian)"
+"IL6_pQTL","z7eDzW","HCC_FinnGen_European","IL-6 Signaling",-0.178722859451632,0.268564469892663,0.626191549916826,"Hepatocellular Carcinoma (European)"
