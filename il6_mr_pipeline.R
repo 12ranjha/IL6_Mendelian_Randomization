@@ -1,3 +1,10 @@
+################################################################################
+# Supporting Information S2: R Analysis Code Pipeline
+# Project: Genetically Proxied Interleukin-6 Inhibition and Cancer Risk
+# Authors: Muhammad Muneeb Ahmad Ranjha, Hamna Munir, Muhammad Saleem, Muzamil Farooq
+# Pipeline Script: il6_mr_pipeline.R
+################################################################################
+
 # ==============================================================================
 # PROJECT: IL-6 Receptor Inhibition and Cancer Risk (Drug-Target MR)
 # ARCHITECTURE: Production Execution Pipeline
@@ -13,7 +20,6 @@ library(dplyr)
 
 # Set up authentication token seamlessly
 my_key <- "your_token_here"
-
 write(paste0("OPENGWAS_JWT=", my_key), file = "~/.Renviron", append = TRUE)
 readRenviron("~/.Renviron")
 
@@ -22,28 +28,28 @@ if(!dir.exists(output_dir)) dir.create(output_dir)
 
 # ── STEP 2: CONSTRUCT CIS-PQTL EXPOSURE DATA FRAME ────────────────────────────
 il6_exposure_raw <- data.frame(
-  SNP           = c("rs2228145", "rs4129267", "rs7529229", "rs1800795"),
-  beta          = c(0.45, 0.38, 0.31, 0.29),
-  se            = c(0.041, 0.038, 0.044, 0.051),
-  pval          = c(2.1e-28, 4.7e-22, 3.8e-13, 1.9e-09),
-  eaf           = c(0.56, 0.44, 0.38, 0.41),
-  effect_allele = c("C", "C", "T", "C"),
-  other_allele  = c("A", "T", "C", "G"),
-  chr           = c(1, 1, 7, 7),
-  pos           = c(154426264, 154426970, 22766765, 22771621),
-  Phenotype     = rep("IL6", 4),
-  samplesize    = rep(54306, 4),
+  SNP           = c("rs2228145", "rs1800795"),
+  beta          = c(0.45, 0.29),
+  se            = c(0.041, 0.051),
+  pval          = c(2.1e-28, 1.9e-09),
+  eaf           = c(0.56, 0.41),
+  effect_allele = c("C", "C"),
+  other_allele  = c("A", "G"),
+  chr           = c(1, 7),
+  pos           = c(154426264, 22766645),
+  Phenotype     = rep("IL6", 2),
+  samplesize    = rep(54306, 2),
   stringsAsFactors = FALSE
 )
 
-# Compute instrument metrics safely on the raw data first (Table 1 contents)
+# Compute instrument metrics safely on the raw data first
 exposure_metrics <- il6_exposure_raw %>%
   mutate(
     F_statistic = (beta^2) / (se^2),
     R2 = (2 * (beta^2) * eaf * (1 - eaf))
   )
-write.csv(exposure_metrics, file = file.path(output_dir, "Table1_Instruments_Metrics.csv"), row.names = FALSE)
-total_r2 <- sum(exposure_metrics$R2)
+
+write.csv(exposure_metrics, file = file.path(output_dir, "S3_Table_Instruments_Metrics.csv"), row.names = FALSE)
 
 # Now format the exposure dataset for TwoSampleMR pipelines
 exposure_il6 <- TwoSampleMR::format_data(
@@ -91,16 +97,7 @@ harm_hcc_asn <- harmonise_data(exposure_il6, out_hcc_asn, action = 2)
 harm_hcc_eur <- harmonise_data(exposure_il6, out_hcc_eur, action = 2)
 
 # ── STEP 4: IMPLEMENT ANALYTICAL CORE & STATISTICS ────────────────────────────
-calc_power <- function(N, prop_cases, R2, true_or = 1.1) {
-  alpha <- 0.05
-  true_beta <- log(true_or)
-  variance_ratio <- 1 / (prop_cases * (1 - prop_cases))
-  non_centrality <- (N * R2 * true_beta^2) / variance_ratio
-  power <- 1 - pnorm(qnorm(1 - alpha/2) - sqrt(non_centrality)) + pnorm(-qnorm(1 - alpha/2) - sqrt(non_centrality))
-  return(round(power * 100, 1))
-}
-
-cohort_pipeline <- function(harm_data, label, file_prefix, total_N, n_cases) {
+cohort_pipeline <- function(harm_data, label, file_prefix) {
   n_retained <- sum(harm_data$mr_keep)
   write.csv(harm_data, file = file.path(output_dir, paste0("Raw_Harmonized_Data_", file_prefix, ".csv")), row.names = FALSE)
   
@@ -112,16 +109,13 @@ cohort_pipeline <- function(harm_data, label, file_prefix, total_N, n_cases) {
   res$OR_upper <- exp(res$b + 1.96 * res$se)
   res$cohort <- label
   
-  res$power_at_OR_1.1 <- calc_power(total_N, n_cases/total_N, total_r2, 1.1)
-  res$power_at_OR_1.2 <- calc_power(total_N, n_cases/total_N, total_r2, 1.2)
-  
   # Heterogeneity & Pleiotropy Testing
   if (n_retained >= 2) {
     het <- mr_heterogeneity(harm_data)
     plei <- mr_pleiotropy_test(harm_data)
   } else {
-    het <- data.frame(method = "Wald Ratio", Q = NA, Q_df = NA, Q_pval = NA)
-    plei <- data.frame(egger_intercept = NA, se = NA, pval = NA)
+    het <- data.frame(id.exposure=NA, id.outcome=NA, outcome=NA, exposure=NA, method = "Wald Ratio", Q = NA, Q_df = NA, Q_pval = NA)
+    plei <- data.frame(id.exposure=NA, id.outcome=NA, outcome=NA, exposure=NA, egger_intercept = NA, se = NA, pval = NA)
   }
   het$cohort <- label
   plei$cohort <- label
@@ -129,15 +123,15 @@ cohort_pipeline <- function(harm_data, label, file_prefix, total_N, n_cases) {
   return(list(mr = res, het = het, plei = plei))
 }
 
-c1 <- cohort_pipeline(harm_crc_eur, "Colorectal Cancer (European)", "CRC_EUR", 32072, 19948)
-c2 <- cohort_pipeline(harm_crc_asn, "Colorectal Cancer (East Asian)", "CRC_ASN", 202807, 7062)
-c3 <- cohort_pipeline(harm_hcc_asn, "Hepatocellular Carcinoma (East Asian)", "HCC_ASN", 197611, 1866)
-c4 <- cohort_pipeline(harm_hcc_eur, "Hepatocellular Carcinoma (European)", "HCC_EUR", 218792, 674)
+c1 <- cohort_pipeline(harm_crc_eur, "Colorectal Cancer (European)", "CRC_EUR")
+c2 <- cohort_pipeline(harm_crc_asn, "Colorectal Cancer (East Asian)", "CRC_ASN")
+c3 <- cohort_pipeline(harm_hcc_asn, "Hepatocellular Carcinoma (East Asian)", "HCC_ASN")
+c4 <- cohort_pipeline(harm_hcc_eur, "Hepatocellular Carcinoma (European)", "HCC_EUR")
 
 # Export Summary Tables to Filesystem
-write.csv(bind_rows(c1$mr, c2$mr, c3$mr, c4$mr), file = file.path(output_dir, "Table2_Master_MR_Estimates.csv"), row.names = FALSE)
-write.csv(bind_rows(c1$het, c2$het, c3$het, c4$het), file = file.path(output_dir, "Table3_Master_Heterogeneity.csv"), row.names = FALSE)
-write.csv(bind_rows(c1$plei, c2$plei, c3$plei, c4$plei), file = file.path(output_dir, "Table4_Master_Pleiotropy.csv"), row.names = FALSE)
+write.csv(bind_rows(c1$mr, c2$mr, c3$mr, c4$mr), file = file.path(output_dir, "S4_Table_Master_MR_Estimates.csv"), row.names = FALSE)
+write.csv(bind_rows(c1$het, c2$het, c3$het, c4$het), file = file.path(output_dir, "S5_Table_Master_Heterogeneity.csv"), row.names = FALSE)
+write.csv(bind_rows(c1$plei, c2$plei, c3$plei, c4$plei), file = file.path(output_dir, "S6_Table_Master_Pleiotropy.csv"), row.names = FALSE)
 
 # ── STEP 5: VISUALIZATION SUITE GENERATION ────────────────────────────────────
 ss_crc_eur <- mr_singlesnp(harm_crc_eur); ss_crc_asn <- mr_singlesnp(harm_crc_asn)
