@@ -1,5 +1,0 @@
-"SNP","chr.exposure","pos.exposure","effect_allele.exposure","other_allele.exposure","eaf.exposure","beta.exposure","se.exposure","pval.exposure","exposure","id.exposure","mr_keep.exposure","F_statistic","Variance_Explained_R2"
-"rs2228145",1,154426264,"C","A",0.56,0.45,0.041,2.1e-28,"IL-6 Signaling","IL6_pQTL",TRUE,120.464009518144,0.099792
-"rs4129267",1,154426970,"C","T",0.44,0.38,0.038,4.7e-22,"IL-6 Signaling","IL6_pQTL",TRUE,100,0.07116032
-"rs7529229",1,154420778,"T","C",0.38,0.31,0.044,3.8e-13,"IL-6 Signaling","IL6_pQTL",TRUE,49.6384297520661,0.04528232
-"rs1800795",7,22766645,"C","G",0.41,0.29,0.051,1.9e-09,"IL-6 Signaling","IL6_pQTL",TRUE,32.3337178008458,0.04068758
