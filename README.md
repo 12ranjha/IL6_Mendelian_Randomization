@@ -5,10 +5,10 @@ Drug-target Mendelian Randomization study analyzing genetically proxied IL-6 inh
 
 ### A Multi-Ancestry Drug-Target Mendelian Randomization Study of Hepatocellular Carcinoma and Colorectal Cancer
 
-**Authors:** Muhammad Muneeb Ahmad Ranjha¹*, Hamna Munir²  
-¹ *Department of Medicine, King Edward Medical University, Lahore, Pakistan*  
-² *Department of Computer Science, COMSATS University Islamabad, Lahore Campus, Pakistan*  
-*\*Corresponding Author*
+Muhammad Muneeb Ahmad Ranjha¹, Hamna Munir², Muhammad Saleem³*, Muzamil Farooq¹
+¹ Department of Medicine, King Edward Medical University, Lahore, Pakistan
+ ² Department of Computer Science, COMSATS University Islamabad, Lahore Campus, Pakistan
+ ³ Medical Faculty, Nangarhar University, Jalalabad, Afghanistan 
 
 ---
 
