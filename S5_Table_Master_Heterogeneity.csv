@@ -1,0 +1,5 @@
+"id.exposure","id.outcome","outcome","exposure","method","Q","Q_df","Q_pval","cohort"
+"37fECA","ebi-a-GCST012879","Colorectal cancer || id:ebi-a-GCST012879","IL6","Inverse variance weighted",1.10733004966299,1,0.292663073714369,"Colorectal Cancer (European)"
+"37fECA","bbj-a-107","Colorectal cancer || id:bbj-a-107","IL6","Inverse variance weighted",0.26664114040493,1,0.605593875515091,"Colorectal Cancer (East Asian)"
+"37fECA","bbj-a-158","hepatocellular carcinoma || id:bbj-a-158","IL6","Inverse variance weighted",0.048643130879003,1,0.825441374099418,"Hepatocellular Carcinoma (East Asian)"
+NA,NA,NA,NA,"Wald Ratio",NA,NA,NA,"Hepatocellular Carcinoma (European)"
