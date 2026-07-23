@@ -1,7 +1,7 @@
 # IL6_Mendelian_Randomization
 Drug-target Mendelian Randomization study analyzing genetically proxied IL-6 inhibition on HCC and CRC risk.
 
-# Genetically Proxied Interleukin-6 Inhibition and Cancer Risk
+# Genetically Proxied IL-6 Receptor Blockade and Cancer Risk
 
 ### A Multi-Ancestry Drug-Target Mendelian Randomization Study of Hepatocellular Carcinoma and Colorectal Cancer
 
